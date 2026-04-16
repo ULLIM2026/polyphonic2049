@@ -1,9 +1,9 @@
 {
   "name": "Polyphonic",
   "short_name": "Polyphonic",
-  "description": "음악 아카이빙 앱",
-  "start_url": "/polyphonic1/",
-  "scope": "/polyphonic1/",
+  "description": "소리를 기록하다",
+  "start_url": "/polyphonic2049/",
+  "scope": "/polyphonic2049/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#D94F3D",
@@ -11,14 +11,8 @@
   "lang": "ko",
   "icons": [
     {
-      "src": "icons/icon-192.png",
+      "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icons/icon-512.png",
-      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }
