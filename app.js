@@ -64,6 +64,29 @@ const globalStyle = `
     .saving-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #2EE622; margin-left: 6px; vertical-align: middle; animation: pulse 1.5s infinite; }
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
 
+    /* ── 페이드인 애니메이션 ── */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in {
+        animation: fadeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    @keyframes fadeInModal {
+        from { opacity: 0; transform: translateY(30px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in-modal {
+        animation: fadeInModal 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+    @keyframes fadeOverlay {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+    .fade-overlay {
+        animation: fadeOverlay 0.3s ease both;
+    }
+
     /* 이미지 업로드 */
     .img-upload-box { width: 100%; aspect-ratio: 1/1; border-radius: 12px; border: 2px dashed ${BORDER}; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; background: #eef1fa; transition: border-color 0.2s; margin-bottom: 8px; }
     .img-upload-box:hover { border-color: ${BG_DARK}; }
@@ -284,8 +307,8 @@ function Polyphonic() {
     if (authLoading) {
         return (
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', flexDirection: 'column', gap: 16, background: '#3D3FD9' }}>
-                <div style={{ fontWeight: 900, fontSize: 24, color: '#fff' }}>POLY<span style={{ color: '#2EE622' }}>PHONIC</span></div>
-                <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)' }}>로딩 중...</div>
+                <div className="fade-in" style={{ fontWeight: 900, fontSize: 24, color: '#fff' }}>POLY<span style={{ color: '#2EE622' }}>PHONIC</span></div>
+                <div className="fade-in" style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', animationDelay: '0.1s' }}>로딩 중...</div>
             </div>
         );
     }
@@ -296,13 +319,15 @@ function Polyphonic() {
             <div>
                 <style>{globalStyle}</style>
                 <div className="login-screen">
-                    <div style={{ fontWeight: 900, fontSize: 36, marginBottom: 8, color: '#fff' }}>POLY<span style={{ color: '#2EE622' }}>PHONIC</span></div>
-                    <div style={{ fontSize: 14, color: 'rgba(255,255,255,0.65)', marginBottom: 48 }}>음악 아카이빙 앱</div>
+                    <div className="fade-in" style={{ fontWeight: 900, fontSize: 36, marginBottom: 8, color: '#fff' }}>POLY<span style={{ color: '#2EE622' }}>PHONIC</span></div>
+                    <div className="fade-in" style={{ fontSize: 14, color: 'rgba(255,255,255,0.65)', marginBottom: 48, animationDelay: '0.1s' }}>음악 아카이빙 앱</div>
+                    <div className="fade-in" style={{ animationDelay: '0.2s' }}>
                     <button className="login-btn" onClick={() => auth.signInWithPopup(provider)}>
                         <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.36-8.16 2.36-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
                         Google로 로그인
                     </button>
-                    <div style={{ marginTop: 24, fontSize: 12, color: 'rgba(255,255,255,0.5)', textAlign: 'center', lineHeight: 1.8 }}>
+                    </div>
+                    <div className="fade-in" style={{ marginTop: 24, fontSize: 12, color: 'rgba(255,255,255,0.5)', textAlign: 'center', lineHeight: 1.8, animationDelay: '0.3s' }}>
                         로그인하면 모든 기기에서<br />데이터가 자동으로 동기화됩니다.
                     </div>
                 </div>
@@ -348,7 +373,7 @@ function Polyphonic() {
 
             {/* ── 검색 결과 ── */}
             {searchQuery && (
-                <div className="search-results scroll-container" style={{ maxHeight: '70vh', overflowY: 'auto', left: '50%', transform: 'translateX(-50%)' }}>
+                <div className="search-results scroll-container fade-in" style={{ maxHeight: '70vh', overflowY: 'auto', left: '50%', transform: 'translateX(-50%)' }}>
                     {searchResults.map((item, idx) => (
                         <div key={idx} className="search-item" onClick={() => { setSelectedItem(item); setActiveTab(item._type); setView("detail"); setSearchQuery(""); }}>
                             <span className="search-tag">{item._type.toUpperCase()}</span>
@@ -360,6 +385,7 @@ function Polyphonic() {
 
             {/* ── 메인 ── */}
             <main style={{ maxWidth: 720, margin: "0 auto", paddingBottom: 100 }}>
+                <div key={`${view}-${activeTab}`} className="fade-in">
 
                 {/* 목록 */}
                 {view === "list" && (
@@ -447,10 +473,11 @@ function Polyphonic() {
                         ))}
                     </div>
                 )}
+                </div>
             </main>
 
             {/* ══ 모달: 음악 ══ */}
-            {showModal.music && <div className="modal-overlay"><div className="modal-content scroll-container">
+            {showModal.music && <div className="modal-overlay fade-overlay"><div className="modal-content scroll-container fade-in-modal">
                 <h2 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>음악 기록</h2>
                 <Input label="영화 제목"           value={forms.music.filmTitle}  onChange={v => setForms({ ...forms, music: { ...forms.music, filmTitle: v } })} />
                 <Input label="음악 제목"           value={forms.music.musicTitle} onChange={v => setForms({ ...forms, music: { ...forms.music, musicTitle: v } })} />
@@ -473,7 +500,7 @@ function Polyphonic() {
             </div></div>}
 
             {/* ══ 모달: 작곡가 ══ */}
-            {showModal.comp && <div className="modal-overlay"><div className="modal-content scroll-container">
+            {showModal.comp && <div className="modal-overlay fade-overlay"><div className="modal-content scroll-container fade-in-modal">
                 <h2 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>작곡가 등록</h2>
                 <ImageUploader
                     photo={forms.comp.photo}
@@ -493,7 +520,7 @@ function Polyphonic() {
             </div></div>}
 
             {/* ══ 모달: 장르 ══ */}
-            {showModal.genre && <div className="modal-overlay"><div className="modal-content scroll-container">
+            {showModal.genre && <div className="modal-overlay fade-overlay"><div className="modal-content scroll-container fade-in-modal">
                 <h2 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>장르 등록</h2>
                 <ImageUploader
                     photo={forms.genre.photo}
@@ -511,7 +538,7 @@ function Polyphonic() {
             </div></div>}
 
             {/* ══ 모달: 악기 ══ */}
-            {showModal.instrument && <div className="modal-overlay"><div className="modal-content scroll-container">
+            {showModal.instrument && <div className="modal-overlay fade-overlay"><div className="modal-content scroll-container fade-in-modal">
                 <h2 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>악기 추가</h2>
                 <ImageUploader
                     photo={forms.instrument.photo}
@@ -532,7 +559,7 @@ function Polyphonic() {
             </div></div>}
 
             {/* ══ 모달: 개념 ══ */}
-            {showModal.concept && <div className="modal-overlay"><div className="modal-content scroll-container">
+            {showModal.concept && <div className="modal-overlay fade-overlay"><div className="modal-content scroll-container fade-in-modal">
                 <h2 style={{ fontSize: 18, fontWeight: 800, marginBottom: 20 }}>개념 추가</h2>
                 <Input label="용어명"              value={forms.concept.name}      onChange={v => setForms({ ...forms, concept: { ...forms.concept, name: v } })} />
                 <Input label="개요"        isArea value={forms.concept.summary}   onChange={v => setForms({ ...forms, concept: { ...forms.concept, summary: v } })} />
@@ -545,7 +572,7 @@ function Polyphonic() {
             </div></div>}
 
             {/* ══ 구성 분석 레이어 ══ */}
-            {showCompositionLayer && <div className="modal-overlay" style={{ zIndex: 1100, alignItems: 'center' }}><div style={{ background: '#fff', width: '90%', maxWidth: 400, borderRadius: 20, padding: 25 }}>
+            {showCompositionLayer && <div className="modal-overlay fade-overlay" style={{ zIndex: 1100, alignItems: 'center' }}><div className="fade-in" style={{ background: '#fff', width: '90%', maxWidth: 400, borderRadius: 20, padding: 25 }}>
                 <h3 style={{ marginBottom: 20, color: BG_DARK }}>구성 분석</h3>
                 {['melody', 'harmony', 'rhythm', 'timbre', 'dynamics'].map(k => (
                     <div key={k} style={{ marginBottom: 12 }}>
