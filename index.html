@@ -31,5 +31,16 @@
 <body>
     <div id="root"></div>
     <script type="text/babel" src="app.js"></script>
+
+    <!-- Service Worker 등록 (PWA 설치 지원) -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/polyphonic2049/sw.js')
+            .then(reg => console.log('SW 등록 성공:', reg.scope))
+            .catch(err => console.log('SW 등록 실패:', err));
+        });
+      }
+    </script>
 </body>
 </html>

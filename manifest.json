@@ -1,7 +1,7 @@
 {
   "name": "Polyphonic",
   "short_name": "Polyphonic",
-  "description": "잔향을 기록하다",
+  "description": "음악 아카이빙 앱",
   "start_url": "/polyphonic2049/",
   "scope": "/polyphonic2049/",
   "display": "standalone",
@@ -11,12 +11,28 @@
   "lang": "ko",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "icons/icon-192.png",
       "sizes": "192x192",
-      "type": "png",
-      "purpose": "any maskable"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
-    
-    
   ]
 }
